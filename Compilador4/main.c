@@ -21,7 +21,11 @@ int main()
 	printf("tk1 \t\ttk2 \t\tvalor\n");
 	token *tk;
 
-	arquivo = fopen("teste_lexico_alex.txt", "r");
+	tk = fill_and_return_token(T_ID);
+
+	print_token(tk);
+
+	/*arquivo = fopen("teste_lexico_alex.txt", "r");
 	int fim_de_arquivo = false;
 
 	while(!fim_de_arquivo)
@@ -31,24 +35,9 @@ int main()
 
 		if(tk->token1 == T_EOF) fim_de_arquivo = true;
 	}
-/*	char c;
-	int i = 0;
-	while(i < 15)
-	{
-		c = fgetc(arquivo);
-		if(c == EOF) printf("eof\n", c);
-		else printf("%c\n", c);
-		if(c == EOF)
-		{
-			fseek(arquivo, -1, SEEK_CUR);
-			c = fgetc(arquivo);
-			//c = fgetc(arquivo);
-		}
-		++i;
-	}
-*/
-	fclose(arquivo);
 
+	fclose(arquivo);
+*/
 	return 0;
 
 }

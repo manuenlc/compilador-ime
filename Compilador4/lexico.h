@@ -37,6 +37,12 @@ token* next_token();
 
 /** imprime as informações do token no console*/
 void print_token(token* to_print);
+
 /** fim das funções */
+
+/** funções privadas: tirar daqui!*/
+token* fill_and_return_token(int token1);
+/** fim das funções privadas */
+
 
 #endif /* LEXICO_H_ */

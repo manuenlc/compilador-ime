@@ -32,7 +32,7 @@ token* fill_and_return_token(int token1);
 void return_eof_next_time();
 token* fill_and_return_token_id_or_reserved_word();
 int get_token2(char* token_id);
-void print_token_info();
+void print_token(token* to_print);
 void add_char_to_nome_lido(char c);
 
 
@@ -60,18 +60,32 @@ token* fill_and_return_token(int token1)
 		return NULL;
 	}
 
-	switch (token1) {
+	token_to_return->token1 = token1;
+
+	switch (token1)
+	{
 		case T_INT_CONST:
+			token_to_return->token_valor_int = atoi(nome_lido);
+			break;
 		case T_BOOLEAN_CONST:
+			if(strcmp("false", nome_lido)) token_to_return->token_valor_boolean = true;
+			else token_to_return->token_valor_boolean = false;
+			break;
 		case T_REAL_CONST:
+			token_to_return->token_valor_real = (float) atof(nome_lido);
+			break;
 		case T_ID:
+			strcpy(token_to_return->token_nome, nome_lido);
+			token_to_return->token2 = get_token2(token_to_return->token_nome);
+			break;
 		case T_EOF:
+			strcpy(token_to_return->token_nome, "eof");
+			break;
 		default:
+			strcpy(token_to_return->token_nome, nome_lido);
 			break;
 	}
-
-	printf("to do");
-	return NULL;
+	return token_to_return;
 }
 
 void return_eof_next_time()
@@ -92,9 +106,38 @@ int get_token2(char* token_id)
 	return 0;
 }
 
-void print_token_info()
+void print_token(token* to_print)
 {
-	printf("to do");
+	if(to_print == NULL)
+	{
+		printf("token NULL");
+		return;
+	}
+
+	printf("%d\t\t", to_print->token1);
+
+	switch (to_print->token1)
+	{
+		case T_INT_CONST:
+			printf(" \t\t%d", to_print->token_valor_int);
+			break;
+		case T_BOOLEAN_CONST:
+			if(to_print->token_valor_boolean) printf(" \t\ttrue");
+			else printf(" \t\tfalse");
+			break;
+		case T_REAL_CONST:
+			printf(" \t\t%f", to_print->token_valor_real);
+			break;
+		case T_ID:
+			printf("%d\t\t", to_print->token2);
+			printf("%s", to_print->token_nome);
+			break;
+		default:
+			printf("%s", to_print->token_nome);
+			break;
+	}
+
+	printf("\n");
 }
 
 void add_char_to_nome_lido(char c)
